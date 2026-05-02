@@ -3,7 +3,6 @@ namespace Services;
 
 use Exception;
 use Repositories\UserRepository;
-use Validation\Auth\SignUp;
 
 class UserService{
     private $repo;
@@ -13,10 +12,10 @@ class UserService{
         $this->repo= new UserRepository();
     }
 
-    public function SignUp($data){
-        $user = $this->repo->getUserByEmail($data);
+    public function signup($data){
+        $user = $this->repo->getUserByEmail($data['email']);
         if($user){
-            throw new Exception("Email Is Already Exits");
+            throw new Exception("Email already exists");
         }
         return $this->repo->createUser($data);
     }
