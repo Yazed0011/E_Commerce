@@ -13,10 +13,18 @@ class UserService{
     }
 
     public function signup($data){
-        $user = $this->repo->getUserByEmail($data['email']);
+
+        $rows=[
+            "name" => strip_tags($data['name']),
+            "email" =>  strip_tags($data['email']),
+            "admin" => (int) $data['admin'] ??  0,
+            "password" =>  password_hash($data['password'] , PASSWORD_DEFAULT)
+        ];
+
+        $user = $this->repo->getUserByEmail($rows['email']);
         if($user){
             throw new Exception("Email already exists");
         }
-        return $this->repo->createUser($data);
+        return $this->repo->createUser($rows);
     }
 }

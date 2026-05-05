@@ -1,11 +1,11 @@
 <?php 
 namespace Model;
 class UserModel {
-    private $id;
-    private $name;
-    private $email;
-    private $password;
-    private $admin;
+    private int $id;
+    private string $name;
+    private string $email;
+    private string $password;
+    private bool $admin;
     public function __construct(array $data) {
         $this->id=$data['id'];
         $this->name = $data['name'];

@@ -15,10 +15,9 @@ class UserRepository {
     public function createUser(array $data) {
         $sql = "INSERT INTO users (name, email, password, admin) VALUES (:name, :email, :password, :admin)";
         $stmt = $this->conn->prepare($sql);
-        $password = password_hash($data['password'], PASSWORD_DEFAULT);
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':email', $data['email']);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':password', $data['password']);
         $stmt->bindParam(':admin', $data['admin']);
         $stmt->execute();
         $id = (int) $this->conn->lastInsertId();
